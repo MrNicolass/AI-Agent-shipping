@@ -4,7 +4,7 @@
 
 # Agent Shipping
 
-This project simulates an urban delivery system on a 4x4 grid using two intelligent agents that make decisions based on simple heuristics and natural language. The goal is to demonstrate how Artificial Intelligence techniques can be applied to real-world scenarios.
+This project simulates an urban delivery system on a 4x4 grid using two intelligent agents that make decisions based on simple heuristics and natural language. The goal is to demonstrate how Artificial Intelligence techniques can be applied to real-world scenarios, it was built in the software engineering degree of Católica University in Jaraguá do Sul, Brazil.
 
 ## 1. Objective
 
@@ -81,4 +81,63 @@ ag2 = Agent("Beto", [0, 3], [3, 0])
     python main.py
     ```
 
-That's it! Now just follow the simulation in your console and enjoy!
+## 7. Submission Guidelines and Report
+
+### 7.1. Code Commentary and Thought Process
+
+Here is a summary of the thought process and the functionality of each component:
+
+- **Environment Variable Loading:**  
+  Uses `dotenv` to load the Groq API key from a `.env` file, ensuring security and flexibility.
+ 
+- **LLM Model Configuration:**  
+    The `llm_config` dictionary specifies which LLM model will be used (default: `gemma2-9b-it`) and sets parameters such as `temperature` (controls randomness in responses) and `max_tokens` (limits the length of generated outputs). Adjusting these parameters allows you to fine-tune the agents' behavior and response style.
+
+- **World Class:**  
+  Represents the 4x4 environment where agents move. It includes methods to add agents, update their positions, and display the grid in the console.
+
+- **Agent Class:**  
+  Each agent has a name, position, and goal. The `move_with_action` method executes the movement according to the LLM's response, ensuring the agent does not leave the grid boundaries.
+
+- **LLM Agent Creation:**  
+  Two agents (`DeliveryAgentAna` and `DeliveryAgentBeto`) are instantiated using AutoGen, each with specific instructions to decide the next move.
+
+- **User Proxy:**  
+  The `UserProxyAgent` automates communication between the code and the LLM agents, with no human intervention required.
+
+- **Main Loop:**  
+  While both agents have not reached their goals, the code alternates between them, requesting the next move from the LLM and updating the world state.
+
+### 7.2. Methods, Findings, and Conclusions
+
+#### Methods
+
+- **LLM-based Simulation:**  
+  Each agent makes movement decisions based on prompts sent to the language model, considering its position, goal, and the other agent's position.
+- **Collision and Boundary Avoidance:**  
+  System instructions ensure agents do not collide or leave the grid.
+- **Real-time Visualization:**  
+  The grid is updated and displayed at each move, allowing step-by-step tracking of the simulation.
+
+#### Findings
+
+- Using LLMs for decision-making in simple environments is feasible and allows simulating autonomous agent behavior;
+- Turn alternation and explicit communication of agent states are sufficient to avoid collisions in most cases;
+- The system is easily customizable for different grid sizes, initial positions, and goals.
+
+#### Conclusions
+
+- The project demonstrates, in a didactic way, how intelligent agents can be orchestrated by language models to solve navigation and delivery tasks;
+- The code is modular, well-commented, and can be expanded to more complex scenarios, such as multiple agents or obstacles in the grid;
+- Integration with the Groq API and the use of AutoGen make the system flexible for testing different LLM models.
+
+### 7.3. How the Code Works
+
+- **Initialization:** Loads configurations and prepares the environment;
+- **Execution:** Alternates between agents, requesting decisions from the LLM and updating the world state;
+- **Completion:** Displays a success message when deliveries are completed.
+
+---
+
+**Summary:**  
+The code implements a clear and efficient simulation of autonomous agents in a grid, using LLMs for decision-making. The project is easily adaptable and serves as a foundation for studies in distributed AI and multi-agent coordination.

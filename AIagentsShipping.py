@@ -8,7 +8,7 @@ from autogen import AssistantAgent, UserProxyAgent
 #Load API key from .env
 load_dotenv(".env")
 
-#Groq model configuration (LLaMA 3.1)
+#Groq model configuration (gemma2-9b-it)
 llm_config = {
     "config_list": [
         {
@@ -177,7 +177,8 @@ while ag1.position != ag1.goal or ag2.position != ag2.goal:
         action_beto = response_beto.chat_history[-1]['content'].strip().lower()
         ag2.move_with_action(action_beto, world)
 
+    time.sleep(0.5)
     world.display()
-    time.sleep(1)
+    time.sleep(0.5)
 
 print("Delivery completed!")
